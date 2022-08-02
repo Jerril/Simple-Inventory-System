@@ -15,13 +15,11 @@
         </form>
         <div class="error">
             <ul>
-                <% if(errors){
-                    errors.map((category, i) => { %>
+                <% if(errors) { %>
                     <li>
-                        <%= category.msg %>
+                        <%= errors %>
                     </li>
-                    <% })
-                } %>
+                    <% } %>
             </ul>
         </div>
         <table class="styled-table">

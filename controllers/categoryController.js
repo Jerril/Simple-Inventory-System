@@ -3,7 +3,6 @@ const { body, validationResult } = require('express-validator');
 const mongoose = require('mongoose');
 const Item = require('../models/item');
 const Category = require('../models/category');
-const item = require('../models/item');
 
 // Display list of categorys
 exports.index = function(req, res, next) {
@@ -129,14 +128,47 @@ exports.category_delete_post = function(req, res, next) {
         category_list: function(callback) {
             Category.find({}).exec(callback);
         },
+        category: function(callback) {
+            Category.findById('62e8bd77fd9120f3e0c3a288').exec(callback);
+        },
         item: function(callback) {
-            Item.find({ 'category._id': mongoose.Types.ObjectId(req.params.id) }).exec(callback);
+            // Get all the items
+            // check if the req.params.id appears in each item category
+            // Item.findOne({ 'category': { $elemMatch: { name: "Others" } } }).exec(callback);
+            // Item.find({ category: { $elemMatch: { name: "Others" } } }).exec(callback);
+            // Item.findOne({ 'category': { $elemMatch: { _id: mongoose.Types.ObjectId(req.params.id) } } }).exec(callback);
+            Item.find({}).exec(callback);
         }
     }, function(err, results) {
         if (err) return next(err);
 
-        // Array of object id = item
+        if (results.category === null) {
+            err = new Error("Category not found");
+            err.status = 404;
+            return next(err);
+        }
 
-        res.send(results.item);
+        // check if this category is used in any item
+        let itemExists = false;
+
+        results.item.forEach((el, i) => {
+            if (el.category.includes(req.params.id)) {
+                itemExists = true;
+                return;
+            }
+        });
+
+        if (itemExists) {
+            const errors = [];
+            errors[0] = "You have to delete all the items attached to this category before you can delete the category";
+            res.render('category_list', { title: "All Categories", category_list: results.category_list, category: '', errors: errors })
+            return;
+        }
+
+        Category.findByIdAndRemove(req.params.id, function deleteCategory(err) {
+            if (err) return next(err);
+
+            res.redirect('/category');
+        });
     })
 }
