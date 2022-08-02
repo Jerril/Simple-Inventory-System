@@ -1,0 +1,34 @@
+<%- include('partials/header'); %>
+    <h1 class='title'>
+        <%= title %>
+    </h1>
+    <div class="body">
+        <form action="/items/<%= item._id %>/update" method="POST">
+            <label for="">
+                <input type="text" name="name" placeholder="Item Name" value="<%= undefined===item ? '' : item.name %>">
+            </label>
+            <label for="">
+                <input type="text" name="description" placeholder="Description" value="<%= undefined===item ? '' : item.description %>">
+            </label>
+            <label for="">
+                <input type="number" name="price" placeholder="Price"  value="<%= undefined===item ? '' : item.price %>">
+            </label>
+            <label for="">
+                <input type="number" name="number_in_stock" placeholder="Number in stock" value="<%= undefined===item ? '' : item.number_in_stock %>">
+            </label>
+            <select name="category" id="">
+                <% categories.forEach((category, index) => { %>
+                    <option value="<%= category._id %>" <%= category.selected ? 'selected' : '' %>><%= category.name %></option>
+                <% }) %>
+            </select>
+            <button type="submit">Submit</button>
+        </form>
+        <div class="error">
+            <ul>
+                <% if(typeof errors === 'undefined'){
+                    console.log(errors);
+                } %>
+            </ul>
+        </div>
+    </div>
+    <%- include('partials/footer'); %>

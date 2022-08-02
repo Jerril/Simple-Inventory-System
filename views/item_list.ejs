@@ -1,0 +1,79 @@
+<%- include('partials/header'); %>
+    <h1 class='title'>
+        <%= title %>
+    </h1>
+    <div class="body">
+        <form action="/items" method="POST">
+            <h1>Add New Item</h1>
+            <label for="">
+                <input type="text" name="name" placeholder="Item Name" value="<%= undefined===item ? '' : item.name %>">
+            </label>
+            <label for="">
+                <input type="text" name="description" placeholder="Description" value="<%= undefined===item ? '' : item.description %>">
+            </label>
+            <label for="">
+                <input type="number" name="price" placeholder="Price"  value="<%= undefined===item ? '' : item.price %>">
+            </label>
+            <label for="">
+                <input type="number" name="number_in_stock" placeholder="Number in stock" value="<%= undefined===item ? '' : item.number_in_stock %>">
+            </label>
+            <select name="category" id="">
+                <% categories.forEach((category, index) => { %>
+                    <option value="<%= category._id %>" <%= category.selected ? 'selected':'' %>><%= category.name %></option>
+                <% }) %>
+            </select>
+            <button type="submit">Submit</button>
+        </form>
+        <div class="error">
+            <ul>
+                <% if(errors){
+                    errors.map((item, i) => { %>
+                    <li>
+                        <%= item.msg %>
+                    </li>
+                    <% })
+                } %>
+            </ul>
+        </div>
+        <table class="styled-table">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Desc.</th>
+                    <th>Price</th>
+                    <th>No. in Stock</th>
+                    <th>Category</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% item_list.forEach((item, index) => { %>
+                    <tr>
+                        <td>
+                            <%= item.name %>
+                        </td>
+                        <td>
+                            <%= item.description %>
+                        </td>
+                        <td>
+                            <%= item.price %>
+                        </td>
+                        <td>
+                            <%= item.number_in_stock %>
+                        </td>
+                        <td>
+                            <%= (item.category[0] === undefined) ? '' : item.category[0].name %>
+                        </td>
+                        <td><a href="/items/<%= item._id %>/update">Update</button></a>
+                            <td>
+                                <form action="/items/<%= item._id %>/delete" method="POST">
+                                    <button type="submit">Delete</button>
+                                </form>
+                            </td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
+    </div>
+    <%- include('partials/footer'); %>

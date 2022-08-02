@@ -1,0 +1,135 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #777;
+}
+
+.container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 15% 85%;
+    column-gap: none;
+    /* border: 1px solid green; */
+}
+
+nav {
+    height: 100vh;
+    border-right: 1px solid rgb(235, 235, 235);
+    text-align: center;
+    /* border: 1px solid yellow; */
+}
+
+nav .logo {
+    background: rgb(235, 235, 235);
+    padding: 10px;
+    font-size: 25px;
+    font-weight: bold;
+    color: #000;
+}
+
+nav .links li {
+    padding: 10px 0;
+}
+
+nav .links li+li {
+    border-top: 1px solid rgb(235, 235, 235);
+}
+
+.links li a {
+    color: #777;
+    text-decoration: none;
+}
+
+section {
+    padding: 10px 1rem;
+}
+
+section .title {
+    text-align: center;
+}
+
+section .body {
+    margin: 3rem 0;
+    /* text-align: center; */
+    /* border: 1px solid red; */
+}
+
+section .body a {
+    font-size: 2rem;
+    padding: .5rem 0;
+    display: block;
+    color: inherit;
+    text-decoration: none;
+}
+
+.styled-table {
+    border-collapse: collapse;
+    margin: 25px auto;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+.styled-table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+
+.styled-table th,
+.styled-table td {
+    padding: 12px 15px;
+}
+
+.styled-table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled-table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled-table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}
+
+.styled-table tbody tr.active-row {
+    font-weight: bold;
+    color: #009879;
+}
+
+.styled-table td a {
+    font-size: inherit;
+    color: blue;
+}
+
+.body form {
+    margin: 0 auto;
+    text-align: center;
+}
+
+form input {
+    outline: 0;
+    border: 1px solid #777;
+    padding: .5rem;
+}
+
+form select {
+    outline: 0;
+    border: 1px solid #777;
+    padding: .5rem;
+}
+
+.error {
+    margin: 0 6.5rem;
+}
+
+.error li {
+    color: red;
+}

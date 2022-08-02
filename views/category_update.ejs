@@ -1,0 +1,23 @@
+<%- include('partials/header'); %>
+    <h1 class='title'>
+        <%= title %>
+    </h1>
+    <div class="body">
+        <form action="/category/<%= category._id %>/update" method="POST">
+            <label for="">
+                <input type="text" name="name" placeholder="Category Name" value="<%= undefined===category ? '' : category.name %>">
+            </label>
+            <label for="">
+                <input type="text" name="description" placeholder="Description" value="<%= undefined===category ? '' : category.description %>">
+            </label>
+            <button type="submit">Submit</button>
+        </form>
+        <div class="error">
+            <ul>
+                <% if(typeof errors === 'undefined'){
+                    console.log(errors);
+                } %>
+            </ul>
+        </div>
+    </div>
+    <%- include('partials/footer'); %>
